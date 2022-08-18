@@ -31,11 +31,12 @@ contract FullStackBasicsNFTTest is Test, IERC721Receiver {
         // aprove transfer from target
         token.approve(targetAddress, 1e18);
 
-        // mint the nft
+        // mint NFT
         uint256 tokenId = target.mintNft();
 
         // the NFT id is the returned value minus 1
         tokenId -= 1;
+
         console.log(tokenId);
 
         // send NFT to my wallet

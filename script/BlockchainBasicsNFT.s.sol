@@ -12,16 +12,28 @@ contract BlockchainBasicsNFTScript is Script, IERC721Receiver {
 
     function setUp() public {
         targetAddress = vm.envAddress("TARGET");
+        console.log(targetAddress);
         target = BlockchainBasicsNFT(targetAddress);
     }
 
     function run() public {
         vm.startBroadcast();
 
+        // mint NFT
         uint256 tokenId = target.mintNft();
+
+        // the NFT id is the returned value minus 1
+        tokenId -= 1;
+
+        console.log(tokenId);
+
+        // send NFT to my wallet
         target.safeTransferFrom(address(this), msg.sender, tokenId);
 
+        // NFT owner should be my wallet address
         require(target.ownerOf(tokenId) == msg.sender, "something went wrong");
+
+        console.log("NFT transfered");
 
         vm.stopBroadcast();
     }

@@ -17,10 +17,18 @@ contract BlockchainBasicsNFTTest is Test, IERC721Receiver {
     }
 
     function testBlockchainBasicsNFT() public {
+        // mint NFT
         uint256 tokenId = target.mintNft();
 
+        // the NFT id is the returned value minus 1
+        tokenId -= 1;
+
+        console.log(tokenId);
+
+        // send NFT to my wallet
         target.safeTransferFrom(address(this), msg.sender, tokenId);
 
+        // NFT owner should be my wallet address
         assertTrue(target.ownerOf(tokenId) == msg.sender);
     }
 

@@ -21,16 +21,13 @@ contract CourseCompletedNFTTest is Test, IERC721Receiver {
         // deploy my contract
         MyContract myContract = new MyContract();
 
-        // call mintNft
+        // mint NFT
         uint256 tokenId = target.mintNft(address(myContract), bytes4(keccak256(bytes("doSomething2()"))));
 
         // the NFT id is the returned value minus 1
         tokenId -= 1;
 
-        // new NFT transfered to contract
-        console.log("tokenId");
         console.log(tokenId);
-        console.log("tokenId");
 
         // send NFT to my wallet
         target.safeTransferFrom(address(this), msg.sender, tokenId);

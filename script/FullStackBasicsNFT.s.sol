@@ -45,6 +45,7 @@ contract FullStackBasicsNFTScript is Script, IERC721Receiver {
         require(target.ownerOf(tokenId) == msg.sender, "something went wrong");
 
         console.log("NFT transfered");
+
         vm.stopBroadcast();
     }
 
