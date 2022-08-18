@@ -22,7 +22,7 @@ contract MyContract is OtherContract {
         owner = msg.sender;
     }
 
-    function getOwner() external view returns (address) {
+    function getOwner() external view override returns (address) {
         return owner;
     }
 

@@ -4,35 +4,39 @@ pragma solidity ^0.8.13;
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
 import "openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol";
+import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
-import "../src/CourseCompletedNFT.sol";
+import "../src/FullStackBasicsNFT.sol";
+import "../src/PatrickHardhatFreeCodeCampToken.sol";
 
-contract CourseCompletedNFTScript is Script, IERC721Receiver {
+contract FullStackBasicsNFTScript is Script, IERC721Receiver {
+    address private constant TOKEN_ADDRESS = 0x5ECEdc30224D9B3b5EE4C2D7ed17C197cb1d263b;
     address private targetAddress;
-    CourseCompletedNFT private target;
+
+    FullStackBasicsNFT private target;
+    PatrickHardhatFreeCodeCampToken private token;
 
     function setUp() public {
         targetAddress = vm.envAddress("TARGET");
-        console.log(targetAddress);
-        console.log(msg.sender);
-        target = CourseCompletedNFT(targetAddress);
+        target = FullStackBasicsNFT(targetAddress);
+        token = PatrickHardhatFreeCodeCampToken(TOKEN_ADDRESS);
     }
 
     function run() public {
         vm.startBroadcast();
-        // deploy my contract
-        MyContract myContract = new MyContract();
 
-        // call mintNft
-        uint256 tokenId = target.mintNft(address(myContract), bytes4(keccak256(bytes("doSomething2()"))));
+        // mint a token
+        token.mintMeAToken();
+
+        // aprove transfer from target
+        token.approve(targetAddress, 1e18);
+
+        // mint the nft
+        uint256 tokenId = target.mintNft();
 
         // the NFT id is the returned value minus 1
         tokenId -= 1;
-
-        // new NFT transfered to contract
-        console.log("tokenId");
         console.log(tokenId);
-        console.log("tokenId");
 
         // send NFT to my wallet
         target.safeTransferFrom(address(this), msg.sender, tokenId);
