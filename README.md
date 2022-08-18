@@ -1,5 +1,7 @@
 # NFTs minting scripts for free code camp Patrick's course using foundry
 
+![image](https://user-images.githubusercontent.com/5586894/185512341-e3ebe5e8-3b10-43e2-9478-2d77f891d200.png)
+
 Source: https://github.com/smartcontractkit/full-blockchain-solidity-course-js
 
 Video: https://www.youtube.com/watch?v=gyMwXuJrbJQ
